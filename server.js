@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser')
+const connectDB = require('./db/connect')
 const dns = require('dns')
 const cors = require('cors');
 const app = express();
@@ -22,6 +23,13 @@ app.get('/api/hello', function(req, res) {
   res.json({ greeting: 'hello API' });
 });
 
-app.listen(port, function() {
-  console.log(`Listening on port ${port}`);
-});
+const start = async () => {
+  try {
+    await connectDB(process.env.MONGO_URI)
+    app.listen(port, console.log(`server is connected to database and listening on port ${port}`))
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+start()
