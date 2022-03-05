@@ -1,9 +1,11 @@
 require('dotenv').config();
-const express = require('express');
 const bodyParser = require('body-parser')
 const connectDB = require('./db/connect')
-const dns = require('dns')
 const cors = require('cors');
+const dns = require('dns')
+const express = require('express');
+const urls = require('./routes/urls')
+
 const app = express();
 
 // Basic Configuration
@@ -14,9 +16,12 @@ app.use(bodyParser.urlencoded())
 
 app.use('/public', express.static(`${process.cwd()}/public`));
 
+// routes
 app.get('/', function(req, res) {
   res.sendFile(process.cwd() + '/views/index.html');
 });
+
+app.use('/api/shorturl', urls)
 
 // Your first API endpoint
 app.get('/api/hello', function(req, res) {
