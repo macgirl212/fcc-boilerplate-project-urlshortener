@@ -1,8 +1,9 @@
 const express = require('express')
 const router = express.Router()
 
-const { postNewUrl } = require('../controllers/urls')
+const { postOrFindUrl, goToUrl } = require('../controllers/urls')
 
-router.route('/').post(postNewUrl)
+router.route('/').post(postOrFindUrl)
+router.route('/:id').get(goToUrl)
 
 module.exports = router
