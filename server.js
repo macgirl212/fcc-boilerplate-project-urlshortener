@@ -2,7 +2,6 @@ require('dotenv').config();
 const bodyParser = require('body-parser')
 const connectDB = require('./db/connect')
 const cors = require('cors');
-const dns = require('dns')
 const express = require('express');
 const urls = require('./routes/urls')
 
@@ -22,11 +21,6 @@ app.get('/', function(req, res) {
 });
 
 app.use('/api/shorturl', urls)
-
-// Your first API endpoint
-app.get('/api/hello', function(req, res) {
-  res.json({ greeting: 'hello API' });
-});
 
 const start = async () => {
   try {

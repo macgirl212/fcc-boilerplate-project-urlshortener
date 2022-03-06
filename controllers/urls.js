@@ -4,6 +4,11 @@ const postOrFindUrl = async (req, res) => {
     const urlCount = await Url.estimatedDocumentCount()
     const oGUrl = req.body.url
 
+    // regex to test if url matches the necessary structure
+    if (!/^(https?\:\/\/www\.).+\.\w{2,}/.test(oGUrl)) {
+        res.status(400).json({ error: "invalid url" })
+    }
+
     // if this is not the first url in database
     if (urlCount !== 0) {
         // search for and return existing url
